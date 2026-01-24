@@ -1,0 +1,191 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500&display=swap');
+
+@layer base {
+  :root {
+    /* Warm off-white palette - academic, restrained */
+    --background: 45 30% 97%;
+    --foreground: 220 15% 18%;
+
+    --card: 45 25% 95%;
+    --card-foreground: 220 15% 18%;
+
+    --popover: 45 30% 97%;
+    --popover-foreground: 220 15% 18%;
+
+    /* Lucence beam blue - matches background shader beams */
+    --primary: 215 92% 65%;
+    --primary-foreground: 45 30% 97%;
+
+    --secondary: 45 15% 92%;
+    --secondary-foreground: 220 15% 25%;
+
+    --muted: 45 10% 90%;
+    --muted-foreground: 220 10% 50%;
+
+    --accent: 215 92% 65%;
+    --accent-foreground: 45 30% 97%;
+
+    --destructive: 0 60% 50%;
+    --destructive-foreground: 45 30% 97%;
+
+    --border: 45 15% 88%;
+    --input: 45 15% 88%;
+    --ring: 215 92% 65%;
+
+    --radius: 0.25rem;
+
+    /* Typography */
+    --font-serif: 'Cormorant Garamond', Georgia, serif;
+    --font-sans: 'Inter', system-ui, sans-serif;
+
+    /* Spacing rhythm */
+    --space-section: 12rem;
+
+    --sidebar-background: 45 25% 95%;
+    --sidebar-foreground: 220 15% 25%;
+    --sidebar-primary: 220 18% 35%;
+    --sidebar-primary-foreground: 45 30% 97%;
+    --sidebar-accent: 45 15% 92%;
+    --sidebar-accent-foreground: 220 15% 25%;
+    --sidebar-border: 45 15% 88%;
+    --sidebar-ring: 220 18% 35%;
+  }
+
+  .dark {
+    /* Deep charcoal variant */
+    --background: 220 15% 8%;
+    --foreground: 45 15% 90%;
+
+    --card: 220 15% 10%;
+    --card-foreground: 45 15% 90%;
+
+    --popover: 220 15% 8%;
+    --popover-foreground: 45 15% 90%;
+
+    /* Lucence beam blue on dark background */
+    --primary: 215 92% 70%;
+    --primary-foreground: 220 15% 10%;
+
+    --secondary: 220 12% 15%;
+    --secondary-foreground: 45 15% 85%;
+
+    --muted: 220 12% 18%;
+    --muted-foreground: 45 10% 55%;
+
+    --accent: 215 92% 70%;
+    --accent-foreground: 220 15% 10%;
+
+    --destructive: 0 60% 40%;
+    --destructive-foreground: 45 15% 90%;
+
+    --border: 220 12% 18%;
+    --input: 220 12% 18%;
+    --ring: 215 92% 65%;
+
+    --sidebar-background: 220 15% 10%;
+    --sidebar-foreground: 45 15% 85%;
+    --sidebar-primary: 45 15% 85%;
+    --sidebar-primary-foreground: 220 15% 10%;
+    --sidebar-accent: 220 12% 15%;
+    --sidebar-accent-foreground: 45 15% 85%;
+    --sidebar-border: 220 12% 18%;
+    --sidebar-ring: 45 15% 75%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-feature-settings: "kern" 1, "liga" 1;
+  }
+
+  ::selection {
+    @apply bg-primary/15;
+  }
+}
+
+@layer components {
+  .font-serif {
+    font-family: var(--font-serif);
+  }
+
+  .font-sans {
+    font-family: var(--font-sans);
+  }
+
+  /* Editorial link style */
+  .link-subtle {
+    @apply text-foreground/70 transition-colors duration-300;
+  }
+
+  .link-subtle:hover {
+    @apply text-foreground;
+  }
+
+  /* Divider - extremely subtle */
+  .divider-faint {
+    @apply h-px w-full bg-foreground/[0.06];
+  }
+}
+
+@layer utilities {
+  /* Fade in animation - barely perceptible */
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fade-in {
+    animation: fade-in 1.2s ease-out forwards;
+  }
+
+  .animation-delay-100 {
+    animation-delay: 100ms;
+  }
+
+  .animation-delay-200 {
+    animation-delay: 200ms;
+  }
+
+  .animation-delay-300 {
+    animation-delay: 300ms;
+  }
+
+  .animation-delay-400 {
+    animation-delay: 400ms;
+  }
+
+  .animation-delay-500 {
+    animation-delay: 500ms;
+  }
+}
+
+/* Hide scrollbar visuals while keeping scroll behavior */
+html,
+body {
+  scrollbar-width: none; /* Firefox */
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}

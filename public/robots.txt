@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Point search engines to your sitemap (update URL if your domain/path differs)
+Sitemap: https://Lucencelabs.so/sitemap.xml
