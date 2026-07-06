@@ -1,6 +1,15 @@
-export const SocialLinks = () => {
+interface SocialLinksProps {
+  /** "light" renders white icons for use on a dark/navy background */
+  variant?: "dark" | "light";
+}
+
+export const SocialLinks = ({ variant = "dark" }: SocialLinksProps) => {
   return (
-    <div className="flex gap-5 items-center justify-center md:justify-end">
+    <div
+      className={`flex gap-5 items-center justify-center md:justify-end ${
+        variant === "light" ? "[filter:brightness(0)_invert(1)] opacity-80 hover:opacity-100 transition-opacity" : ""
+      }`}
+    >
       {/* X (Twitter) */}
       <a
         href="https://x.com/lucencelabs"
