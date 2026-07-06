@@ -1,6 +1,6 @@
 import { Hero } from "@/components/Hero";
 import { Work } from "@/components/Work";
-import { Philosophy } from "@/components/Philosophy";
+import { Services } from "@/components/Services";
 import { Footer } from "@/components/Footer";
 
 const Index = () => {
@@ -9,7 +9,7 @@ const Index = () => {
       <div className="relative z-10 bg-background">
         <Hero />
         <Work />
-        <Philosophy />
+        <Services />
       </div>
       <Footer />
     </main>
