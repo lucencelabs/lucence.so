@@ -139,8 +139,8 @@ const fragmentShader = `
     dotSize *= step(0.015, dotSize);
 
     vec2 fromCenter = abs(localPos - 0.5);
-    float half = dotSize * 0.5;
-    float inDot = step(fromCenter.x, half) * step(fromCenter.y, half);
+    float halfSize = dotSize * 0.5;
+    float inDot = step(fromCenter.x, halfSize) * step(fromCenter.y, halfSize);
 
     vec3 dotColor = mix(uSparseColor, uDenseColor, quant);
 
