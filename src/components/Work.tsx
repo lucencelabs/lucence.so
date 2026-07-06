@@ -42,9 +42,9 @@ export const Work = () => {
         <div className="divider-faint mb-12 md:mb-16" />
 
         <div className="space-y-6 opacity-0 animate-fade-in animation-delay-200">
-          <span className="text-sm text-muted-foreground font-light tracking-wide uppercase">
-            Work
-          </span>
+          <h2 className="font-serif text-4xl font-medium tracking-tight text-foreground md:text-5xl">
+            For work
+          </h2>
 
           <div className="grid grid-cols-1 gap-6 pt-2 sm:grid-cols-2">
             <WorkCard

@@ -80,10 +80,7 @@ export const Services = () => {
         <div className="divider-faint mb-12 md:mb-16" />
 
         <div className="opacity-0 animate-fade-in animation-delay-200">
-          <span className="text-xs font-light uppercase tracking-widest text-primary/80">
-            Services
-          </span>
-          <h2 className="mt-3 font-serif text-4xl font-medium tracking-tight text-foreground md:text-5xl">
+          <h2 className="font-serif text-4xl font-medium tracking-tight text-foreground md:text-5xl">
             What I build
           </h2>
         </div>
