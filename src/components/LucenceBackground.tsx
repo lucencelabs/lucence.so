@@ -93,6 +93,9 @@ const fragmentShader = `
     return 5.0;
   }
 
+  // Number of ray lobes fanning out of the focal point.
+  const float RAYS = 30.0;
+
   void main() {
     vec2 fragCoord = vUv * uResolution;
 
@@ -104,44 +107,81 @@ const fragmentShader = `
     vec2 uv = cellCenterPx / uResolution;
 
     vec2 aspect = vec2(uResolution.x / uResolution.y, 1.0);
-    vec2 centered = (uv - uFocal) * aspect;
-    float dist = length(centered);
+    vec2 dir = (uv - uFocal) * aspect;
+    float dist = length(dir);
+    float angle = atan(dir.y, dir.x);
 
     float time = uReducedMotion ? 0.0 : uTime;
+    float drift = time * 0.02;
 
     // Slow breathing of the clearing radius - subtle, not the aggressive
     // moving "god rays" this used to be.
-    float breathe = uReducedMotion ? 0.0 : sin(time * 0.15) * 0.04;
-    float focalRadius = 0.55 + breathe;
+    float breathe = uReducedMotion ? 0.0 : sin(time * 0.12) * 0.02;
 
-    // 1.0 near the focal point (bright / sparse), 0.0 far away (dark / dense)
-    float glow = 1.0 - smoothstep(0.0, focalRadius, dist);
+    // --- Radial envelope -----------------------------------------------
+    // 0 = untouched page background right around the focal point (true
+    // negative space), 1 = fully dense dot fabric out toward the edges.
+    // The transition is deliberately long/gradual so density never
+    // saturates a short distance from the source.
+    float innerClean = 0.14 + breathe;
+    float outerFull = 0.88;
+    float t = smoothstep(innerClean, outerFull, dist);
 
-    // Warp the field with noise so the light reads as breaking through
-    // noise rather than a clean drawn vignette.
-    float drift = time * 0.025;
-    float n = fbm(cellCoord * 0.05 + vec2(drift, -drift * 0.6));
-    float n2 = fbm(cellCoord * 0.14 - vec2(drift * 0.4, drift));
+    // --- Directional sunburst -------------------------------------------
+    // Warp the ray angle with noise so the streaks read as organic light
+    // rays, not a mechanically perfect pinwheel.
+    float jitter = fbm(vec2(cos(angle), sin(angle)) * 2.2 + drift) - 0.5;
+    float rayAngle = angle * RAYS + jitter * 1.4;
+    float sinVal = 0.5 + 0.5 * sin(rayAngle);
 
-    float value = clamp(glow * 1.2 - (1.0 - n) * 0.4 + n2 * 0.12, 0.0, 1.0);
+    // Near the source the rays are thin and separated by wide gaps of
+    // clean background; the duty cycle widens with distance until the
+    // individual rays merge into one continuous dense field further out.
+    // thresh slides from ~0.94 (only the sharpest ray peaks pass, thin
+    // separated streaks) down to 0 (almost the full angular range passes,
+    // i.e. rays have merged into one continuous fabric) - using a fixed
+    // edge width keeps each ray's own edge crisp at every radius instead
+    // of smearing the whole transition band wide open.
+    float duty = mix(0.05, 0.94, smoothstep(0.0, 0.85, t));
+    float thresh = 1.0 - duty;
+    float edge = 0.1;
+    float rayMask = smoothstep(thresh - edge, thresh + edge, sinVal);
+
+    float density = t * rayMask;
+
+    // Fine, high-frequency fbm texture so the dense fabric reads as an
+    // even halftone grain rather than a flat mid-tone or - if too strong -
+    // a blotchy camouflage pattern.
+    float n = fbm(cellCoord * 0.18 + vec2(drift, -drift * 0.6));
+    float n2 = fbm(cellCoord * 0.4 - vec2(drift * 0.5, drift));
+    density = clamp(density + (n - 0.5) * 0.1 + (n2 - 0.5) * 0.05, 0.0, 1.0);
+
+    // Hard guarantee of true negative space directly around the focal
+    // point, regardless of what the ray/noise terms produced.
+    density *= smoothstep(innerClean * 0.5, innerClean, dist);
 
     // Ordered dithering: quantize the continuous field into discrete
     // levels using the Bayer threshold, exactly like a dot-matrix print
     // reducing a photo to a fixed number of tones.
-    float levels = 6.0;
+    float levels = 9.0;
     float bayer = bayer4x4(cellCoord) / 16.0;
-    float dithered = clamp(value + (bayer - 0.5) / levels, 0.0, 1.0);
+    float dithered = clamp(density + (bayer - 0.5) / levels, 0.0, 1.0);
     float quant = clamp(floor(dithered * levels) / (levels - 1.0), 0.0, 1.0);
 
-    // Denser / darker cells render a bigger square dot; sparse, bright
-    // cells shrink toward nothing near the focal point.
-    float dotSize = mix(0.94, 0.0, quant);
-    dotSize *= step(0.015, dotSize);
+    // Denser cells (far from the focal point) render a bigger square dot;
+    // cells near the source shrink to nothing. Capped below 1.0 so the
+    // grid structure stays legible even at max density instead of
+    // resolving to a solid fill.
+    float dotSize = quant * 0.8;
+    dotSize *= step(0.02, dotSize);
 
     vec2 fromCenter = abs(localPos - 0.5);
     float halfSize = dotSize * 0.5;
     float inDot = step(fromCenter.x, halfSize) * step(fromCenter.y, halfSize);
 
+    // Dense cells are deep navy, sparse cells fade to near-white/cream -
+    // matching direction of dotSize so distance-from-focal drives both
+    // consistently.
     vec3 dotColor = mix(uSparseColor, uDenseColor, quant);
 
     gl_FragColor = vec4(dotColor, inDot);
@@ -160,10 +200,10 @@ interface LucenceBackgroundProps {
 }
 
 export default function LucenceBackground({
-  cellSize = 8,
+  cellSize = 4,
   focal = [0.5, 0.56],
-  denseColor = [0.086, 0.188, 0.361], // #16305c
-  sparseColor = [0.788, 0.839, 0.925], // #c9d6ec
+  denseColor = [0.04, 0.078, 0.176], // #0a1430 - deep saturated navy
+  sparseColor = [0.98, 0.973, 0.953], // near-white cream, matches page bg
 }: LucenceBackgroundProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const animationFrameRef = useRef<number>();
