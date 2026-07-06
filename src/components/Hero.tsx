@@ -1,11 +1,5 @@
 import LucenceBackground from './LucenceBackground';
-
-const NAV_LINKS = [
-  { label: 'Home', href: '#top' },
-  { label: 'Work', href: '#work' },
-  { label: 'Services', href: '#services' },
-  { label: 'Contact', href: '#contact' },
-];
+import { FloatingNav } from './FloatingNav';
 
 export const Hero = () => {
   return (
@@ -15,25 +9,7 @@ export const Hero = () => {
     >
       <LucenceBackground />
 
-      {/* Nav */}
-      <div className="relative z-10 border-b border-foreground/[0.06] opacity-0 animate-fade-in">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-6 md:px-10">
-          <a href="#top" className="font-serif text-lg font-light tracking-tight text-foreground">
-            Lucence
-          </a>
-          <nav className="flex items-center gap-6 md:gap-8">
-            {NAV_LINKS.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                className="text-sm font-light tracking-wide text-foreground/70 transition-colors duration-300 hover:text-foreground"
-              >
-                {link.label}
-              </a>
-            ))}
-          </nav>
-        </div>
-      </div>
+      <FloatingNav />
 
       {/* Hero content */}
       <div className="relative z-10 flex flex-1 items-center px-6 md:px-10">

@@ -34,6 +34,9 @@ export default {
         'wordmark': ['5.5rem', { lineHeight: '1', letterSpacing: '-0.02em' }],
         'wordmark-sm': ['3.5rem', { lineHeight: '1', letterSpacing: '-0.01em' }],
       },
+      transitionTimingFunction: {
+        spring: 'cubic-bezier(0.32, 0.72, 0, 1)',
+      },
       letterSpacing: {
         'tighter': '-0.03em',
         'tight': '-0.02em',
