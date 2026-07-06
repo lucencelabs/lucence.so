@@ -43,7 +43,7 @@ export const Work = () => {
 
         <div className="space-y-6 opacity-0 animate-fade-in animation-delay-200">
           <h2 className="font-serif text-4xl font-medium tracking-tight text-foreground md:text-5xl">
-            For work
+            Work
           </h2>
 
           <div className="grid grid-cols-1 gap-6 pt-2 sm:grid-cols-2">
