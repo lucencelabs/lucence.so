@@ -47,7 +47,7 @@ export const FloatingNav = () => {
         ref={rootRef}
         className={cn(
           'pointer-events-auto overflow-hidden border border-foreground/10 bg-background/70 shadow-[0_8px_30px_rgba(20,25,40,0.08)] backdrop-blur-xl transition-all duration-500 ease-spring',
-          open ? 'w-[340px] rounded-[28px] sm:w-[380px]' : 'w-[320px] rounded-full sm:w-[350px]',
+          open ? 'w-[340px] rounded-[22px] sm:w-[380px]' : 'w-[320px] rounded-[18px] sm:w-[350px]',
         )}
       >
         {/* Always-visible header row */}
