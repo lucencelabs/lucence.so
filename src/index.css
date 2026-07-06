@@ -1,8 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@300;400;500&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500&display=swap');
 
 @layer base {
   :root {
@@ -16,8 +16,9 @@
     --popover: 45 30% 97%;
     --popover-foreground: 220 15% 18%;
 
-    /* Lucence beam blue - matches background shader beams */
-    --primary: 215 92% 65%;
+    /* Muted navy - matches the dithered-dot brand palette (drowned-out blue,
+       not a bright saturated accent) */
+    --primary: 217 45% 34%;
     --primary-foreground: 45 30% 97%;
 
     --secondary: 45 15% 92%;
@@ -26,7 +27,7 @@
     --muted: 45 10% 90%;
     --muted-foreground: 220 10% 50%;
 
-    --accent: 215 92% 65%;
+    --accent: 217 45% 34%;
     --accent-foreground: 45 30% 97%;
 
     --destructive: 0 60% 50%;
@@ -34,12 +35,12 @@
 
     --border: 45 15% 88%;
     --input: 45 15% 88%;
-    --ring: 215 92% 65%;
+    --ring: 217 45% 34%;
 
     --radius: 0.25rem;
 
     /* Typography */
-    --font-serif: 'Cormorant Garamond', Georgia, serif;
+    --font-serif: 'Fraunces', Georgia, serif;
     --font-sans: 'Inter', system-ui, sans-serif;
 
     /* Spacing rhythm */
@@ -66,8 +67,8 @@
     --popover: 220 15% 8%;
     --popover-foreground: 45 15% 90%;
 
-    /* Lucence beam blue on dark background */
-    --primary: 215 92% 70%;
+    /* Muted navy accent on dark background */
+    --primary: 217 50% 68%;
     --primary-foreground: 220 15% 10%;
 
     --secondary: 220 12% 15%;
@@ -76,7 +77,7 @@
     --muted: 220 12% 18%;
     --muted-foreground: 45 10% 55%;
 
-    --accent: 215 92% 70%;
+    --accent: 217 50% 68%;
     --accent-foreground: 220 15% 10%;
 
     --destructive: 0 60% 40%;
@@ -84,7 +85,7 @@
 
     --border: 220 12% 18%;
     --input: 220 12% 18%;
-    --ring: 215 92% 65%;
+    --ring: 217 45% 34%;
 
     --sidebar-background: 220 15% 10%;
     --sidebar-foreground: 45 15% 85%;
