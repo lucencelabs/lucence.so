@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -40,7 +40,7 @@
     --radius: 0.25rem;
 
     /* Typography */
-    --font-serif: 'Fraunces', Georgia, serif;
+    --font-serif: 'Instrument Serif', Georgia, serif;
     --font-sans: 'Inter', system-ui, sans-serif;
 
     /* Spacing rhythm */

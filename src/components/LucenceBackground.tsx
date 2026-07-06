@@ -118,21 +118,32 @@ const fragmentShader = `
     // moving "god rays" this used to be.
     float breathe = uReducedMotion ? 0.0 : sin(time * 0.12) * 0.02;
 
-    // --- Radial envelope -----------------------------------------------
-    // 0 = untouched page background right around the focal point (true
-    // negative space), 1 = fully dense dot fabric out toward the edges.
-    // The transition is deliberately long/gradual so density never
-    // saturates a short distance from the source.
-    float innerClean = 0.14 + breathe;
-    float outerFull = 0.88;
-    float t = smoothstep(innerClean, outerFull, dist);
+    // --- Radial ray-merge progression --------------------------------------
+    // How "resolved" the sunburst is at this point, purely as a function of
+    // true radial distance from the focal point. Small near the source (thin,
+    // separated ray lobes visible), saturates to 1 quickly with distance so
+    // the rays merge into one continuous, evenly-grained halftone well
+    // before reaching the edges - matching the reference, where individual
+    // rays are only legible right around the light source and everywhere
+    // else is just a smooth density gradient, not persistent macro-scale
+    // spokes.
+    float coreRadius = 0.16 + breathe;
+    float mergeRadius = 0.5;
+    float radialT = smoothstep(coreRadius, mergeRadius, dist);
 
     // --- Directional sunburst -------------------------------------------
     // Warp the ray angle with noise so the streaks read as organic light
     // rays, not a mechanically perfect pinwheel.
     float jitter = fbm(vec2(cos(angle), sin(angle)) * 2.2 + drift) - 0.5;
     float rayAngle = angle * RAYS + jitter * 1.4;
-    float sinVal = 0.5 + 0.5 * sin(rayAngle);
+    // Triangle wave (not sin) so the duty-cycle threshold below maps
+    // linearly to angular width - a sinusoid flattens out near its peak
+    // and trough, so a fixed threshold on sin() eats a much wider arc than
+    // "duty" implies and the rays never fully merge at a distance, however
+    // high duty climbs. A triangle wave is piecewise-linear in phase, so
+    // duty = 0.94 really does mean ~94% of each ray's angular period is lit.
+    float phase = fract(rayAngle / (2.0 * 3.14159265));
+    float triWave = 1.0 - abs(2.0 * phase - 1.0);
 
     // Near the source the rays are thin and separated by wide gaps of
     // clean background; the duty cycle widens with distance until the
@@ -142,12 +153,12 @@ const fragmentShader = `
     // i.e. rays have merged into one continuous fabric) - using a fixed
     // edge width keeps each ray's own edge crisp at every radius instead
     // of smearing the whole transition band wide open.
-    float duty = mix(0.05, 0.94, smoothstep(0.0, 0.85, t));
+    float duty = mix(0.05, 0.97, smoothstep(0.0, 0.7, radialT));
     float thresh = 1.0 - duty;
-    float edge = 0.1;
-    float rayMask = smoothstep(thresh - edge, thresh + edge, sinVal);
+    float edge = 0.08;
+    float rayMask = smoothstep(thresh - edge, thresh + edge, triWave);
 
-    float density = t * rayMask;
+    float density = radialT * rayMask;
 
     // Fine, high-frequency fbm texture so the dense fabric reads as an
     // even halftone grain rather than a flat mid-tone or - if too strong -
@@ -157,8 +168,27 @@ const fragmentShader = `
     density = clamp(density + (n - 0.5) * 0.1 + (n2 - 0.5) * 0.05, 0.0, 1.0);
 
     // Hard guarantee of true negative space directly around the focal
-    // point, regardless of what the ray/noise terms produced.
-    density *= smoothstep(innerClean * 0.5, innerClean, dist);
+    // point (the bright "light source" core), regardless of what the
+    // ray/noise terms produced.
+    density *= smoothstep(coreRadius * 0.5, coreRadius, dist);
+
+    // --- Spatial gate -------------------------------------------------
+    // The fabric is NOT a symmetric ring around the focal point - it's
+    // biased so the top-left (headline/nav) quadrant stays clean while the
+    // bottom-right two-thirds fills in with dot fabric, per the reference
+    // comp. Built from screen-space uv (not the aspect/focal-relative dir
+    // vector), so it tracks the rectangle's corners regardless of focal
+    // placement: 0 at the top-left corner, increasing toward the bottom
+    // and, more weakly, toward the right, so top-right stays mostly clean
+    // (nav sits on bare background) while bottom-left still picks up
+    // fabric same as bottom-right. This only gates *whether* the fabric
+    // shows, not its grain/merge progression (that stays purely radial
+    // above), so the halftone itself never looks clipped by a hard edge.
+    float diag = (1.0 - uv.y) + uv.x * 0.4;
+    // Small organic warp so the frontier isn't a razor-straight diagonal.
+    diag += (fbm(uv * 3.0 + drift) - 0.5) * 0.22;
+    float gate = smoothstep(0.6 + breathe, 1.05, diag);
+    density *= gate;
 
     // Ordered dithering: quantize the continuous field into discrete
     // levels using the Bayer threshold, exactly like a dot-matrix print
@@ -201,9 +231,15 @@ interface LucenceBackgroundProps {
 
 export default function LucenceBackground({
   cellSize = 4,
-  focal = [0.5, 0.56],
-  denseColor = [0.04, 0.078, 0.176], // #0a1430 - deep saturated navy
-  sparseColor = [0.98, 0.973, 0.953], // near-white cream, matches page bg
+  // Low-and-right-of-center, matching the reference comp's light source
+  // (roughly under/right of the subhead+CTA, well clear of the headline).
+  focal = [0.58, 0.37],
+  // Monochrome blue only - no gray/black. Dense areas read as a clear
+  // saturated navy, sparse areas fade to a pale but distinctly *blue*
+  // tint (never all the way to page-background cream/white), so the
+  // whole field reads as blue at every density level.
+  denseColor = [0.086, 0.188, 0.357], // #16305b - deep saturated navy
+  sparseColor = [0.788, 0.839, 0.925], // #c9d6ec - pale drowned-out blue
 }: LucenceBackgroundProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const animationFrameRef = useRef<number>();

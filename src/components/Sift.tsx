@@ -2,10 +2,10 @@ import { Link } from "react-router-dom";
 
 export const Sift = () => {
   return (
-    <section className="px-6 py-section-sm md:py-section">
+    <section id="work" className="px-6 py-section-sm md:py-section scroll-mt-24">
       <div className="mx-auto max-w-3xl">
         <div className="divider-faint mb-12 md:mb-16" />
-        
+
         <div className="space-y-6 opacity-0 animate-fade-in animation-delay-200">
           <div>
             <span className="text-sm text-muted-foreground font-light tracking-wide uppercase">

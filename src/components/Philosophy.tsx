@@ -1,6 +1,6 @@
 export const Philosophy = () => {
   return (
-    <section className="px-6 py-section-sm md:py-section">
+    <section id="services" className="px-6 py-section-sm md:py-section scroll-mt-24">
       <div className="mx-auto max-w-3xl">
         <div className="divider-faint mb-12 md:mb-16" />
         

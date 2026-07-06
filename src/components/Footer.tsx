@@ -2,7 +2,7 @@ import { SocialLinks } from "./SocialLinks";
 
 export const Footer = () => {
   return (
-    <footer className="px-6 pb-12 pt-section-sm md:pt-section">
+    <footer id="contact" className="px-6 pb-12 pt-section-sm md:pt-section scroll-mt-24">
       <div className="mx-auto max-w-3xl">
         <div className="divider-faint mb-8" />
         <div className="flex flex-col gap-4 text-sm text-muted-foreground font-light md:flex-row md:items-center md:justify-between">
