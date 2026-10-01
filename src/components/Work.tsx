@@ -42,7 +42,7 @@ const WorkCard = ({ title, meta, body, tags, link, image }: WorkEntry) => {
         loading="lazy"
         width={640}
         height={640}
-        className="mx-auto mb-6 aspect-square w-56 shrink-0 md:mx-0 md:mb-0 md:w-52"
+        className="mx-auto mb-6 aspect-square w-56 shrink-0 object-contain md:mx-0 md:mb-0 md:w-52"
       />
       <div className="min-w-0 flex-1">
       <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
