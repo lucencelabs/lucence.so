@@ -62,7 +62,6 @@ export const Services = () => {
         </div>
 
         <div className="mt-8 flex flex-wrap items-baseline gap-x-4 gap-y-1 text-sm font-light text-[#16305b]/50 opacity-0 animate-fade-in animation-delay-400">
-          <p>CS @ CU Boulder.</p>
           <a
             href="#contact"
             className="text-[#16305b]/70 transition-colors duration-300 hover:text-[#16305b]"
