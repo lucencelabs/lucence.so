@@ -1,5 +1,6 @@
 import type { ComponentType } from 'react';
 import { BuildSketch } from './sketches/BuildSketch';
+import { PipelineSketch } from './sketches/PipelineSketch';
 import { VoiceSketch } from './sketches/VoiceSketch';
 
 interface ServiceEntry {
@@ -11,10 +12,16 @@ interface ServiceEntry {
 
 const services: ServiceEntry[] = [
   {
-    title: 'Voice and agent systems',
-    body: 'Realtime voice agents, RAG, and agents that take real actions inside the systems a business already runs.',
+    title: 'Voice agents',
+    body: 'Realtime voice agents that hold a real conversation, remember context, and take actions in the systems a business already runs.',
     color: '#16305b',
     Sketch: VoiceSketch,
+  },
+  {
+    title: 'AI pipelines at scale',
+    body: 'Ingestion, fine-tuning, and evaluation pipelines built to hold up at millions of records.',
+    color: '#4a6650',
+    Sketch: PipelineSketch,
   },
   {
     title: '0 to 1 product builds',
@@ -25,12 +32,12 @@ const services: ServiceEntry[] = [
 ];
 
 const ServiceCard = ({ title, body, color, Sketch }: ServiceEntry) => (
-  <article className="flex h-full flex-col rounded-[1.75rem] p-3 sm:p-4" style={{ backgroundColor: color }}>
+  <article className="flex h-full flex-col rounded-[1.75rem] p-2.5 sm:p-3" style={{ backgroundColor: color }}>
     <div className="aspect-[400/260] overflow-hidden rounded-[1.25rem] bg-[#fbfaf6]">
       <Sketch />
     </div>
-    <div className="px-4 pb-5 pt-6 sm:px-5">
-      <h3 className="font-serif text-3xl font-normal leading-tight text-[#fbf6ee]">{title}</h3>
+    <div className="px-3 pb-4 pt-5 sm:px-4">
+      <h3 className="font-serif text-2xl font-normal leading-tight text-[#fbf6ee]">{title}</h3>
       <p className="mt-3 text-[0.95rem] font-light leading-relaxed text-[#fbf6ee]/75">{body}</p>
     </div>
   </article>
@@ -48,7 +55,7 @@ export const Services = () => {
           </h2>
         </div>
 
-        <div className="mt-10 grid grid-cols-1 gap-5 opacity-0 animate-fade-in animation-delay-300 md:grid-cols-2">
+        <div className="mt-10 grid grid-cols-1 gap-5 opacity-0 animate-fade-in animation-delay-300 md:grid-cols-3">
           {services.map((service) => (
             <ServiceCard key={service.title} {...service} />
           ))}

@@ -15,7 +15,7 @@ export const VoiceSketch = () => {
         <circle cx="124" cy="86" r="9" fill={INK} />
         <path d="M108 104 h32" strokeWidth="1.6" />
         {/* hang-up button */}
-        <circle cx="124" cy="182" r="8" fill={INK} />
+        <rect x="110" y="178" width="28" height="9" rx="4.5" fill={INK} />
 
         {/* voice line out of the phone */}
         <path className="ink-flow" d="M172 132 C 205 112, 218 150, 248 128" strokeDasharray="3 7" strokeWidth="2" />

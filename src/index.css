@@ -204,3 +204,6 @@ body::-webkit-scrollbar {
   .ink-bar, .ink-flow, .ink-spark { animation: none; }
   .ink-check { animation: none; stroke-dashoffset: 0; }
 }
+.ink-belt { animation: ink-belt 2.4s linear infinite; }
+@keyframes ink-belt { from { transform: translateX(-26px); } to { transform: translateX(26px); } }
+@media (prefers-reduced-motion: reduce) { .ink-belt { animation: none; } }
