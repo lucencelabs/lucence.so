@@ -190,3 +190,17 @@ body::-webkit-scrollbar {
   width: 0;
   height: 0;
 }
+
+/* Services ink sketches: small, slow motion; off for reduced motion */
+.ink-bar { transform-box: fill-box; transform-origin: center; animation: ink-bar 1.4s ease-in-out infinite; }
+@keyframes ink-bar { 0%,100% { transform: scaleY(0.45); } 50% { transform: scaleY(1); } }
+.ink-flow { animation: ink-flow 1.6s linear infinite; }
+@keyframes ink-flow { to { stroke-dashoffset: -20; } }
+.ink-check { stroke-dasharray: 1; stroke-dashoffset: 1; animation: ink-check 3.6s ease-out infinite; }
+@keyframes ink-check { 0%,8% { stroke-dashoffset: 1; } 22%,86% { stroke-dashoffset: 0; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+.ink-spark { animation: ink-spark 2.2s ease-in-out infinite; }
+@keyframes ink-spark { 0%,100% { opacity: 0.25; } 50% { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) {
+  .ink-bar, .ink-flow, .ink-spark { animation: none; }
+  .ink-check { animation: none; stroke-dashoffset: 0; }
+}
