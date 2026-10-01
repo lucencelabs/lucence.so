@@ -16,15 +16,15 @@ export const Hero = () => {
         <div className="mx-auto w-full max-w-6xl">
           <div className="max-w-2xl opacity-0 animate-fade-in animation-delay-200">
             <h1 className="font-serif text-4xl font-semibold leading-[1.1] tracking-tight text-foreground sm:text-5xl md:text-6xl">
-              We build software
+              Custom AI software,
               <br />
-              that brings clarity.
+              built end to end.
             </h1>
 
             <p className="mt-6 max-w-md text-base font-light leading-relaxed text-muted-foreground">
-              Contract engineering and AI-native products,
+              Voice agents, AI pipelines, and new products,
               <br />
-              built end-to-end by people who ship.
+              from first call to launch.
             </p>
 
             <div className="mt-9">
