@@ -11,7 +11,7 @@ const entries: WorkEntry[] = [
     title: 'Voice companion for older adults',
     meta: 'Founding engineer · Oct 2025 - Mar 2026',
     body: "Built a realtime voice agent older adults talk to, directly on ElevenLabs realtime, with hand-written memory and steering layers: RAG over each user's own memories so the agent knows their life mid-call, dynamic instruction injection to guide long conversations through a narrative arc, and generated shareable life stories for family. Sub-second voice loop across 5,000+ sessions.",
-    tags: ['Voice AI', 'RAG', 'ElevenLabs realtime', 'ETL'],
+    tags: ['Voice AI', 'RAG', 'ElevenLabs realtime'],
   },
   {
     title: 'Soaper, AI for physician EMR',
@@ -22,10 +22,10 @@ const entries: WorkEntry[] = [
   },
   {
     title: 'Sift, an AI assistant for students',
-    meta: 'Own product · Lucence',
+    meta: 'Founder · Jul 2025 - May 2026',
     body: 'An AI assistant students text over iMessage. It can see, plan, and act on their calendar, tasks, and commitments, and connects to Canvas so it knows their assignments and deadlines. Used by 100+ students.',
     tags: ['iMessage', 'AI assistant', 'Canvas'],
-    link: { href: 'https://github.com/lucencelabs/Sift-Public', label: 'GitHub' },
+    link: { href: 'https://usesift.app', label: 'usesift.app' },
   },
 ];
 
