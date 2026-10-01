@@ -45,7 +45,7 @@ const ServiceCard = ({ title, body, color, Sketch }: ServiceEntry) => (
 
 export const Services = () => {
   return (
-    <section id="services" className="px-6 pb-section-sm pt-4 md:pb-section md:pt-8 scroll-mt-24">
+    <section id="services" className="px-6 pb-20 pt-4 md:pb-28 md:pt-8 scroll-mt-24">
       <div className="mx-auto max-w-3xl">
         <div className="divider-faint mb-12 md:mb-16" />
 
