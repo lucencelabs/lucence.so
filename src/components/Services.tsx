@@ -20,13 +20,13 @@ const services: ServiceEntry[] = [
   {
     title: 'AI pipelines at scale',
     body: 'Ingestion, fine-tuning, and evaluation pipelines built to hold up at millions of records.',
-    color: '#4a6650',
+    color: '#16305b',
     Sketch: PipelineSketch,
   },
   {
     title: '0 to 1 product builds',
     body: 'From a rough idea to something real users touch, scoped to ship in weeks.',
-    color: '#b85c38',
+    color: '#16305b',
     Sketch: BuildSketch,
   },
 ];
