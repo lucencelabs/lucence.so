@@ -45,10 +45,8 @@ const ServiceCard = ({ title, body, color, Sketch }: ServiceEntry) => (
 
 export const Services = () => {
   return (
-    <section id="services" className="px-6 pt-section-sm pb-4 md:pt-section md:pb-8 scroll-mt-24">
+    <section id="services" className="px-6 pt-16 pb-4 md:pt-24 md:pb-8 scroll-mt-24">
       <div className="mx-auto max-w-4xl">
-        <div className="divider-faint mb-12 md:mb-16" />
-
         <div className="opacity-0 animate-fade-in animation-delay-200">
           <h2 className="font-serif text-4xl font-medium tracking-tight text-foreground md:text-5xl">
             Services
