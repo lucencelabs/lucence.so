@@ -36,14 +36,16 @@ const entries: WorkEntry[] = [
 const WorkCard = ({ title, meta, body, tags, link, image }: WorkEntry) => {
   return (
     <article className="rounded-2xl border border-[#16305b]/10 bg-white/60 p-7 sm:p-9 md:flex md:items-center md:gap-9">
-      <img
-        src={image.src}
-        alt={image.alt}
-        loading="lazy"
-        width={640}
-        height={640}
-        className="mx-auto mb-6 aspect-square w-full max-w-xs shrink-0 rounded-xl object-cover md:mx-0 md:mb-0 md:w-60"
-      />
+      <div className="mx-auto mb-6 w-full max-w-xs shrink-0 rounded-[1.75rem] bg-[#16305b] p-2.5 md:mx-0 md:mb-0 md:w-60">
+        <img
+          src={image.src}
+          alt={image.alt}
+          loading="lazy"
+          width={640}
+          height={640}
+          className="aspect-square w-full rounded-[1.25rem] object-cover"
+        />
+      </div>
       <div className="min-w-0 flex-1">
       <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
         <p className="text-xs font-normal tracking-wide text-[#16305b]/50">{meta}</p>
