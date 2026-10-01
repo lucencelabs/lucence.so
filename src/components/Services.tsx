@@ -20,7 +20,7 @@ const services: ServiceEntry[] = [
 
 const ServiceCard = ({ title, body }: ServiceEntry) => {
   return (
-    <article className="h-full rounded-2xl border border-[#16305b]/10 bg-white/60 p-7 transition-[border-color,box-shadow,transform] duration-300 ease-spring hover:-translate-y-0.5 hover:border-[#16305b]/20 hover:shadow-[0_1px_2px_rgba(22,48,91,0.04),0_8px_24px_-12px_rgba(22,48,91,0.12)]">
+    <article className="h-full rounded-2xl border border-[#16305b]/10 bg-white/60 p-7">
       <h3 className="font-serif text-2xl font-normal leading-snug text-[#16305b]">{title}</h3>
       <p className="mt-4 text-sm font-light leading-relaxed text-[#16305b]/70">{body}</p>
     </article>
