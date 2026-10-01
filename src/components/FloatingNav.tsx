@@ -4,8 +4,8 @@ import { cn } from '@/lib/utils';
 
 const NAV_LINKS = [
   { label: 'Home', href: '#top' },
-  { label: 'Work', href: '#work' },
   { label: 'Services', href: '#services' },
+  { label: 'Work', href: '#work' },
   { label: 'Contact', href: '#contact' },
 ];
 

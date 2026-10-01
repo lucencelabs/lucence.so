@@ -45,8 +45,8 @@ const ServiceCard = ({ title, body, color, Sketch }: ServiceEntry) => (
 
 export const Services = () => {
   return (
-    <section id="services" className="px-6 pb-20 pt-4 md:pb-28 md:pt-8 scroll-mt-24">
-      <div className="mx-auto max-w-3xl">
+    <section id="services" className="px-6 pt-section-sm pb-4 md:pt-section md:pb-8 scroll-mt-24">
+      <div className="mx-auto max-w-4xl">
         <div className="divider-faint mb-12 md:mb-16" />
 
         <div className="opacity-0 animate-fade-in animation-delay-200">
@@ -61,14 +61,6 @@ export const Services = () => {
           ))}
         </div>
 
-        <div className="mt-8 flex flex-wrap items-baseline gap-x-4 gap-y-1 text-sm font-light text-[#16305b]/50 opacity-0 animate-fade-in animation-delay-400">
-          <a
-            href="#contact"
-            className="text-[#16305b]/70 transition-colors duration-300 hover:text-[#16305b]"
-          >
-            Let&apos;s talk <span aria-hidden="true">&rarr;</span>
-          </a>
-        </div>
       </div>
     </section>
   );
