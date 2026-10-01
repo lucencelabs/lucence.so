@@ -35,7 +35,7 @@ const entries: WorkEntry[] = [
 
 const WorkCard = ({ title, meta, body, tags, link, image }: WorkEntry) => {
   return (
-    <article className="rounded-2xl border border-[#16305b]/10 bg-white/60 p-7 transition-[border-color,box-shadow,transform] duration-300 ease-spring hover:-translate-y-0.5 hover:border-[#16305b]/20 hover:shadow-[0_1px_2px_rgba(22,48,91,0.04),0_8px_24px_-12px_rgba(22,48,91,0.12)] sm:p-9 md:flex md:items-center md:gap-9">
+    <article className="rounded-2xl border border-[#16305b]/10 bg-white/60 p-7 sm:p-9 md:flex md:items-center md:gap-9">
       <img
         src={image.src}
         alt={image.alt}
