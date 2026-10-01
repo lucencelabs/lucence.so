@@ -82,7 +82,7 @@ const WorkCard = ({ title, meta, body, tags, link, image }: WorkEntry) => {
 
 export const Work = () => {
   return (
-    <section id="work" className="px-6 py-section-sm md:py-section scroll-mt-24">
+    <section id="work" className="px-6 pt-section-sm pb-12 md:pt-section md:pb-16 scroll-mt-24">
       <div className="mx-auto max-w-4xl">
         <div className="divider-faint mb-12 md:mb-16" />
 
