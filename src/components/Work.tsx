@@ -13,14 +13,14 @@ const entries: WorkEntry[] = [
     meta: 'Founding engineer · Oct 2025 - Mar 2026',
     body: "Built a realtime voice agent older adults talk to, directly on ElevenLabs realtime, with hand-written memory and steering layers: RAG over each user's own memories so the agent knows their life mid-call, dynamic instruction injection to guide long conversations through a narrative arc, and generated shareable life stories for family. Sub-second voice loop across 5,000+ sessions.",
     tags: ['Voice AI', 'RAG', 'ElevenLabs realtime'],
-    image: { src: '/work/im.webp', alt: 'Ink sketch of an older woman in an armchair talking to a phone on a side table' },
+    image: { src: '/work/im.webp', alt: "A printed life-story page titled The Summer of '68, generated from conversations with the voice companion" },
   },
   {
     title: 'Soaper, AI for physician EMR',
     meta: 'Software engineer · Jul - Sep 2025',
     body: 'Built the voice agent layer for an EMR platform: a HIPAA-compliant agent handling emergency calls around the clock and taking real actions in the chart. Wired 12 EMR actions to voice at 95% reliability, and built a secure S3 pre-signed URL flow for physician signatures and media uploads.',
     tags: ['Voice AI', 'Agentic workflows', 'AWS S3', 'HIPAA'],
-    image: { src: '/work/soaper.webp', alt: 'Ink sketch of a physician on a late call at a desk, reading a chart on a tablet' },
+    image: { src: '/work/soaper.webp', alt: 'A tablet showing an after-hours call chart note with a physician signature' },
     link: { href: 'https://soaper.ai', label: 'soaper.ai' },
   },
   {
@@ -28,7 +28,7 @@ const entries: WorkEntry[] = [
     meta: 'Founder · Jul 2025 - May 2026',
     body: 'An AI assistant students text over iMessage. It can see, plan, and act on their calendar, tasks, and commitments, and connects to Canvas so it knows their assignments and deadlines. Used by 100+ students.',
     tags: ['iMessage', 'AI assistant', 'Canvas'],
-    image: { src: '/work/sift.webp', alt: 'Ink sketch of a student lying on a bed texting, a calendar on the wall' },
+    image: { src: '/work/sift.webp', alt: "An iPhone showing a Sift iMessage thread laying out a student's week" },
     link: { href: 'https://usesift.app', label: 'usesift.app' },
   },
 ];
@@ -42,7 +42,7 @@ const WorkCard = ({ title, meta, body, tags, link, image }: WorkEntry) => {
         loading="lazy"
         width={640}
         height={640}
-        className="mx-auto mb-6 aspect-square w-56 shrink-0 object-contain md:mx-0 md:mb-0 md:w-52"
+        className="mx-auto mb-6 aspect-square w-full max-w-xs shrink-0 rounded-xl object-cover md:mx-0 md:mb-0 md:w-60"
       />
       <div className="min-w-0 flex-1">
       <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
