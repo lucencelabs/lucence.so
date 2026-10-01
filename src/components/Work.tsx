@@ -36,7 +36,7 @@ const entries: WorkEntry[] = [
 const WorkCard = ({ title, meta, body, tags, link, image }: WorkEntry) => {
   return (
     <article className="rounded-2xl border border-[#16305b]/10 bg-white/60 p-7 sm:p-9 md:flex md:items-center md:gap-9">
-      <div className="mx-auto mb-6 w-full max-w-xs shrink-0 rounded-[1.75rem] bg-[#16305b] p-2.5 md:mx-0 md:mb-0 md:w-60">
+      <div className="mx-auto mb-6 w-full max-w-xs shrink-0 rounded-[1.25rem] bg-[#fbfaf6] md:mx-0 md:mb-0 md:w-60">
         <img
           src={image.src}
           alt={image.alt}
