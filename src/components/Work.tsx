@@ -3,6 +3,7 @@ interface WorkEntry {
   meta: string;
   body: string;
   tags: string[];
+  image: { src: string; alt: string };
   link?: { href: string; label: string };
 }
 
@@ -12,12 +13,14 @@ const entries: WorkEntry[] = [
     meta: 'Founding engineer · Oct 2025 - Mar 2026',
     body: "Built a realtime voice agent older adults talk to, directly on ElevenLabs realtime, with hand-written memory and steering layers: RAG over each user's own memories so the agent knows their life mid-call, dynamic instruction injection to guide long conversations through a narrative arc, and generated shareable life stories for family. Sub-second voice loop across 5,000+ sessions.",
     tags: ['Voice AI', 'RAG', 'ElevenLabs realtime'],
+    image: { src: '/work/im.webp', alt: 'Ink sketch of an older woman in an armchair talking to a phone on a side table' },
   },
   {
     title: 'Soaper, AI for physician EMR',
     meta: 'Software engineer · Jul - Sep 2025',
     body: 'Built the voice agent layer for an EMR platform: a HIPAA-compliant agent handling emergency calls around the clock and taking real actions in the chart. Wired 12 EMR actions to voice at 95% reliability, and built a secure S3 pre-signed URL flow for physician signatures and media uploads.',
     tags: ['Voice AI', 'Agentic workflows', 'AWS S3', 'HIPAA'],
+    image: { src: '/work/soaper.webp', alt: 'Ink sketch of a physician on a late call at a desk, reading a chart on a tablet' },
     link: { href: 'https://soaper.ai', label: 'soaper.ai' },
   },
   {
@@ -25,13 +28,23 @@ const entries: WorkEntry[] = [
     meta: 'Founder · Jul 2025 - May 2026',
     body: 'An AI assistant students text over iMessage. It can see, plan, and act on their calendar, tasks, and commitments, and connects to Canvas so it knows their assignments and deadlines. Used by 100+ students.',
     tags: ['iMessage', 'AI assistant', 'Canvas'],
+    image: { src: '/work/sift.webp', alt: 'Ink sketch of a student lying on a bed texting, a calendar on the wall' },
     link: { href: 'https://usesift.app', label: 'usesift.app' },
   },
 ];
 
-const WorkCard = ({ title, meta, body, tags, link }: WorkEntry) => {
+const WorkCard = ({ title, meta, body, tags, link, image }: WorkEntry) => {
   return (
-    <article className="rounded-2xl border border-[#16305b]/10 bg-white/60 p-7 transition-[border-color,box-shadow,transform] duration-300 ease-spring hover:-translate-y-0.5 hover:border-[#16305b]/20 hover:shadow-[0_1px_2px_rgba(22,48,91,0.04),0_8px_24px_-12px_rgba(22,48,91,0.12)] sm:p-9">
+    <article className="rounded-2xl border border-[#16305b]/10 bg-white/60 p-7 transition-[border-color,box-shadow,transform] duration-300 ease-spring hover:-translate-y-0.5 hover:border-[#16305b]/20 hover:shadow-[0_1px_2px_rgba(22,48,91,0.04),0_8px_24px_-12px_rgba(22,48,91,0.12)] sm:p-9 md:flex md:items-center md:gap-9">
+      <img
+        src={image.src}
+        alt={image.alt}
+        loading="lazy"
+        width={640}
+        height={640}
+        className="mx-auto mb-6 aspect-square w-56 shrink-0 md:mx-0 md:mb-0 md:w-52"
+      />
+      <div className="min-w-0 flex-1">
       <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
         <p className="text-xs font-normal tracking-wide text-[#16305b]/50">{meta}</p>
         {link && (
@@ -62,6 +75,7 @@ const WorkCard = ({ title, meta, body, tags, link }: WorkEntry) => {
           </li>
         ))}
       </ul>
+      </div>
     </article>
   );
 };
@@ -69,7 +83,7 @@ const WorkCard = ({ title, meta, body, tags, link }: WorkEntry) => {
 export const Work = () => {
   return (
     <section id="work" className="px-6 py-section-sm md:py-section scroll-mt-24">
-      <div className="mx-auto max-w-3xl">
+      <div className="mx-auto max-w-4xl">
         <div className="divider-faint mb-12 md:mb-16" />
 
         <div className="opacity-0 animate-fade-in animation-delay-200">
