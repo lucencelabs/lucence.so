@@ -1,20 +1,23 @@
-import LucenceBackground from './LucenceBackground';
+import { useRef } from 'react';
+import CloudfieldBackground from './CloudfieldBackground';
 import { FloatingNav } from './FloatingNav';
 
 export const Hero = () => {
+  const copyRef = useRef<HTMLDivElement>(null);
+
   return (
     <section
       id="top"
       className="relative flex min-h-screen flex-col overflow-hidden bg-background"
     >
-      <LucenceBackground />
+      <CloudfieldBackground clearingRef={copyRef} fadeBottom={0.14} />
 
       <FloatingNav />
 
       {/* Hero content */}
       <div className="relative z-10 flex flex-1 items-center px-6 md:px-10">
         <div className="mx-auto w-full max-w-6xl">
-          <div className="max-w-2xl opacity-0 animate-fade-in animation-delay-200">
+          <div ref={copyRef} className="max-w-2xl opacity-0 animate-fade-in animation-delay-200">
             <h1 className="font-serif text-4xl font-semibold leading-[1.1] tracking-tight text-foreground sm:text-5xl md:text-6xl">
               Custom AI software,
               <br />
