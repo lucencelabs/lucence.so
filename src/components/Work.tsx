@@ -7,20 +7,20 @@ interface WorkEntry {
 const entries: WorkEntry[] = [
   {
     title: 'After-hours line for a physician practice',
-    body: 'Patients who call at night get answered every time, and what they needed is already in their chart when the office opens.',
+    body: "An AI agent that answers the practice's phone after hours and updates the patient's chart from the call.",
     link: { href: 'https://soaper.ai', label: 'soaper.ai' },
   },
   {
     title: 'Phone orders for a retailer',
-    body: 'Customers can place an order or ask for a quote by phone any time, and if a call goes sideways the team gets the full order instead of losing the sale.',
+    body: 'An AI agent that takes orders and quote requests over the phone, and sets up a callback when someone needs to talk to a person.',
   },
   {
     title: 'Follow-up calls for a home-services company',
-    body: "Calls back quotes that went cold and past customers due for a tune-up, and puts them on the schedule without anyone on staff picking up the phone.",
+    body: "AI agents that call customers who got a quote but didn't book, and past customers about the company's maintenance plan.",
   },
   {
     title: 'Voice companion for older adults',
-    body: 'Older adults talk to it like a friend, and their stories become something they can share with family. 5,000+ conversations.',
+    body: 'A voice agent older adults talk to about their lives, which turns their stories into something they can share with family. Used in over 5,000 conversations.',
   },
 ];
 
