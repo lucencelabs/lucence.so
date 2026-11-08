@@ -1,10 +1,20 @@
-import { DitherPattern, INK, InkFilter, NAVY } from './InkDefs';
+import { DitherPattern, INK, InkFilter, NAVY, PAPER } from './InkDefs';
 import { BAYER, dotsAlong } from './inkMath';
-import { EASE_OUT, POP, useInkTimeline, type Track } from './useInkTimeline';
+import { EASE_OUT, POP, useInkTimeline, type Key, type Track } from './useInkTimeline';
 
 const LOOP = 5.8;
-const TRAIL = dotsAlong([201, 110], [220, 80], [248, 84], [255, 104], 8);
+const TRAIL = dotsAlong([200, 134], [214, 116], [232, 116], [246, 124], 7);
 const WIRE_LINES = ['M82 154 h70', 'M82 166 h54', 'M82 178 h62'];
+// Pencil tip positions in napkin coordinates: [seconds, x, y], timed to the wireframe draws.
+const REST: [number, number] = [116, 178];
+const PENCIL: [number, number, number][] = [
+  [0, ...REST],
+  [0.15, 82, 88], [0.3, 134, 88], [0.33, 134, 98], [0.47, 82, 98],
+  [0.5, 82, 108], [0.64, 168, 108], [0.7, 168, 142], [0.84, 82, 142], [0.9, 86, 112],
+  [1.1, 164, 138], [1.15, 164, 112], [1.25, 86, 138],
+  [1.3, 82, 154], [1.48, 152, 154], [1.52, 82, 166], [1.7, 136, 166], [1.74, 82, 178], [1.92, 144, 178],
+  [2.25, ...REST],
+];
 const SCREEN_LINES = ['M274 152 h50', 'M274 166 h40', 'M274 180 h46'];
 
 const draw = (sel: string, from: number, to: number, ease?: string): Track => ({
@@ -16,30 +26,24 @@ const draw = (sel: string, from: number, to: number, ease?: string): Track => ({
 
 // Sketch the wireframe, carry it across, then the phone screen comes alive: bar, a block that dithers in palest-first, copy, sparks.
 const TRACKS: Track[] = [
-  draw('.bd-wire-head', 0.15, 0.5),
-  draw('.bd-wire-box', 0.45, 0.95),
-  draw('.bd-wire-x0', 0.9, 1.1),
-  draw('.bd-wire-x1', 1.05, 1.25),
-  ...WIRE_LINES.map((_, j) => draw(`.bd-wire-line-${j}`, 1.25 + j * 0.15, 1.45 + j * 0.15)),
+  draw('.bd-wire-head', 0.15, 0.5, 'linear'),
+  draw('.bd-wire-box', 0.5, 0.9, 'linear'),
+  draw('.bd-wire-x0', 0.9, 1.1, 'linear'),
+  draw('.bd-wire-x1', 1.15, 1.25, 'linear'),
+  ...WIRE_LINES.map((_, j) => draw(`.bd-wire-line-${j}`, 1.3 + j * 0.22, 1.48 + j * 0.22, 'linear')),
   {
+    // the pencil tip rides each wireframe stroke as it's drawn, then sets down beside the napkin
     sel: '.bd-pencil',
     prop: 'transform',
-    keys: [
-      [0.05, 'translate(0px, 0px)'],
-      [0.2, 'translate(-8px, -12px)'],
-      [0.5, 'translate(-2px, -14px)'],
-      [0.95, 'translate(-12px, -6px)'],
-      [1.25, 'translate(-4px, -9px)'],
-      [1.75, 'translate(-7px, -2px)'],
-      [2.1, 'translate(0px, 0px)'],
-    ],
+    ease: 'linear',
+    keys: PENCIL.map(([t, x, y]): Key => [t, `translate(${x}px, ${y}px)`]),
   },
   ...TRAIL.map((_, k): Track => ({
     sel: `.bd-dot-${k}`,
     prop: 'transform',
-    keys: [[1.85 + k * 0.07, 'scale(0)', POP], [2.1 + k * 0.07, 'scale(1)']],
+    keys: [[2.05 + k * 0.06, 'scale(0)', POP], [2.25 + k * 0.06, 'scale(1)']],
   })),
-  draw('.bd-arrow', 2.4, 2.6, EASE_OUT),
+  draw('.bd-arrow', 2.45, 2.6, EASE_OUT),
   { sel: '.bd-header', prop: 'transform', ease: EASE_OUT, keys: [[2.6, 'scaleX(0)'], [3.0, 'scaleX(1)']] },
   { sel: '.bd-header', prop: 'opacity', keys: [[2.6, 0], [2.7, 1]] },
   draw('.bd-block', 2.75, 3.15),
@@ -88,18 +92,18 @@ export const BuildSketch = () => {
               <path key={d} className={`bd-wire-line-${j}`} d={d} strokeWidth="1.6" pathLength={1} />
             ))}
           </g>
-        </g>
-        {/* pencil */}
-        <g className="bd-pencil">
-          <g transform="rotate(18 120 222)">
-            <rect x="70" y="216" width="92" height="10" rx="2" />
-            <path d="M162 216 l16 5 l-16 5 z" fill={INK} />
-            <rect x="64" y="216" width="8" height="10" fill={INK} />
+          {/* pencil, tip at its own origin so the timeline can steer the point */}
+          <g className="bd-pencil" style={{ transform: `translate(${REST[0]}px, ${REST[1]}px)` }}>
+            <g transform="rotate(38)">
+              <path d="M0 0 L15 -5 L15 5 Z" fill={INK} />
+              <rect x="15" y="-5" width="78" height="10" rx="2" fill={PAPER} />
+              <rect x="93" y="-5" width="8" height="10" fill={INK} />
+            </g>
           </g>
         </g>
 
         {/* the hop from idea to product */}
-        <path className="bd-arrow bd-fade" d="M250 100 l8 9 l3 -12" strokeWidth="2" pathLength={1} strokeDasharray="1 2" />
+        <path className="bd-arrow bd-fade" d="M245 118 L253 125 L244 131" stroke={NAVY} strokeWidth="2.2" pathLength={1} strokeDasharray="1 2" />
 
         {/* shipped phone */}
         <rect x="262" y="44" width="88" height="168" rx="16" />

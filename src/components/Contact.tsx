@@ -17,7 +17,7 @@ export const Contact = () => {
             Let&apos;s talk
           </h2>
           <p className="mt-6 max-w-md text-base font-light leading-relaxed text-muted-foreground">
-            Tell me what you&apos;re trying to build and where it&apos;s stuck.
+            Tell us what you&apos;re trying to build and where it&apos;s stuck.
           </p>
           <a
             href="mailto:hello@lucence.so"

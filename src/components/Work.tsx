@@ -1,25 +1,33 @@
+import type { ComponentType } from 'react';
+import { CompanionIcon, FollowUpIcon, NightLineIcon, OrdersIcon } from './sketches/WorkIcons';
+
 interface WorkEntry {
   title: string;
   body: string;
+  icon: ComponentType;
   link?: { href: string; label: string };
 }
 
 const entries: WorkEntry[] = [
   {
     title: 'After-hours line for a physician practice',
+    icon: NightLineIcon,
     body: "An AI agent that answers the practice's phone after hours and updates the patient's chart from the call.",
     link: { href: 'https://soaper.ai', label: 'soaper.ai' },
   },
   {
     title: 'Phone orders for a retailer',
+    icon: OrdersIcon,
     body: 'An AI agent that takes orders and quote requests over the phone, and sets up a callback when someone needs to talk to a person.',
   },
   {
     title: 'Follow-up calls for a home-services company',
+    icon: FollowUpIcon,
     body: "AI agents that call customers who got a quote but didn't book, and past customers about the company's maintenance plan.",
   },
   {
     title: 'Voice companion for older adults',
+    icon: CompanionIcon,
     body: 'A voice agent older adults talk to about their lives, which turns their stories into something they can share with family. Used in over 5,000 conversations.',
   },
 ];
@@ -37,12 +45,15 @@ export const Work = () => {
         </div>
 
         <ul className="mt-10 opacity-0 animate-fade-in animation-delay-300">
-          {entries.map(({ title, body, link }) => (
+          {entries.map(({ title, body, icon: EntryIcon, link }) => (
             <li
               key={title}
               className="grid gap-2 border-t border-[#16305b]/10 py-7 last:border-b md:grid-cols-[1fr_1.4fr] md:gap-10"
             >
-              <h3 className="font-serif text-2xl font-normal leading-snug text-[#16305b]">{title}</h3>
+              <div className="flex items-start gap-4">
+                <EntryIcon />
+                <h3 className="font-serif text-2xl font-normal leading-snug pt-1 text-[#16305b]">{title}</h3>
+              </div>
               <div>
                 <p className="text-sm font-light leading-relaxed text-[#16305b]/70">{body}</p>
                 {link && (
