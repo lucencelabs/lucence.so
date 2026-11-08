@@ -6,21 +6,21 @@ interface WorkEntry {
 
 const entries: WorkEntry[] = [
   {
-    title: 'After-hours voice agent for physicians',
-    body: "Answers a practice's emergency line around the clock and takes real actions in the patient chart, with 12 EMR actions wired to voice.",
+    title: 'After-hours line for a physician practice',
+    body: 'Patients who call at night get answered every time, and what they needed is already in their chart when the office opens.',
     link: { href: 'https://soaper.ai', label: 'soaper.ai' },
   },
   {
-    title: 'Inbound sales line for a retailer',
-    body: "Takes orders and quote requests on a retailer's live phone line. Every change is tested against a suite of simulated calls built from 144 real ones before it ships.",
+    title: 'Phone orders for a retailer',
+    body: 'Customers can place an order or ask for a quote by phone any time, and if a call goes sideways the team gets the full order instead of losing the sale.',
   },
   {
     title: 'Follow-up calls for a home-services company',
-    body: 'Two outbound agents that call back quotes that never booked and past customers due for maintenance, and get them on the schedule.',
+    body: "Calls back quotes that went cold and past customers due for a tune-up, and puts them on the schedule without anyone on staff picking up the phone.",
   },
   {
     title: 'Voice companion for older adults',
-    body: "A realtime voice agent that remembers each person's life story mid-conversation and turns it into something they can share with family. 5,000+ sessions.",
+    body: 'Older adults talk to it like a friend, and their stories become something they can share with family. 5,000+ conversations.',
   },
 ];
 
