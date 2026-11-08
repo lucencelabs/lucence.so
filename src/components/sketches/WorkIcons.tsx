@@ -46,11 +46,13 @@ export const FollowUpIcon = () => (
   <Icon id="followup" label="House with an outgoing call">
     {(fill) => (
       <>
-        <path d="M8 34 l18 -16 l18 16" />
-        <path d="M13 30 v26 h26 v-26" />
-        <path d="M21 56 v-12 h10 v12" fill={fill} />
-        <path d="M44 16 l12 -8 M49 8 h7 v7" />
-        <path d="M47 22 a8 8 0 0 0 0 -8" strokeWidth="1.8" />
+        <path d="M4 38 l17 -15 l17 15" />
+        <path d="M8 35 v22 h26 v-22" />
+        <path d="M17 57 v-11 h8 v11" fill={fill} />
+        <g transform="translate(33 3) scale(1.05)" strokeWidth="2.1">
+          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" fill={fill} />
+          <path d="M15.05 5A5 5 0 0 1 19 8.95 M15.05 1A9 9 0 0 1 23 8.94" />
+        </g>
       </>
     )}
   </Icon>
