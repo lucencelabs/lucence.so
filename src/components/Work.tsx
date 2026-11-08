@@ -28,7 +28,7 @@ export const Work = () => {
   return (
     <section id="work" className="px-6 pt-4 pb-12 md:pt-8 md:pb-16 scroll-mt-24">
       <div className="mx-auto max-w-4xl">
-        <div className="divider-faint mb-12 md:mb-16" />
+        <div className="mb-12 md:mb-16" />
 
         <div className="opacity-0 animate-fade-in animation-delay-200">
           <h2 className="font-serif text-4xl font-medium tracking-tight text-foreground md:text-5xl">
