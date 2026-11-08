@@ -4,6 +4,19 @@ import { EASE_OUT, POP, useInkTimeline, type Key, type Track } from './useInkTim
 
 const LOOP = 5.8;
 const TRAIL = dotsAlong([200, 134], [214, 116], [232, 116], [246, 124], 7);
+// Arrowhead continues the trail: tip one dot-step past the last dot, aimed along the trail's final heading.
+const HEAD = (() => {
+  const [[ax, ay], [bx, by]] = TRAIL.slice(-2);
+  const step = Math.hypot(bx - ax, by - ay);
+  const [ux, uy] = [(bx - ax) / step, (by - ay) / step];
+  const tip: [number, number] = [bx + ux * step, by + uy * step];
+  const arm = (deg: number) => {
+    const r = (deg * Math.PI) / 180;
+    const [vx, vy] = [-ux * Math.cos(r) + uy * Math.sin(r), -ux * Math.sin(r) - uy * Math.cos(r)];
+    return `${(tip[0] + vx * step).toFixed(1)} ${(tip[1] + vy * step).toFixed(1)}`;
+  };
+  return `M${arm(40)} L${tip[0].toFixed(1)} ${tip[1].toFixed(1)} L${arm(-40)}`;
+})();
 const WIRE_LINES = ['M82 154 h70', 'M82 166 h54', 'M82 178 h62'];
 // Pencil tip positions in napkin coordinates: [seconds, x, y], timed to the wireframe draws.
 const REST: [number, number] = [116, 178];
@@ -102,9 +115,6 @@ export const BuildSketch = () => {
           </g>
         </g>
 
-        {/* the hop from idea to product */}
-        <path className="bd-arrow bd-fade" d="M245 118 L253 125 L244 131" stroke={NAVY} strokeWidth="2.2" pathLength={1} strokeDasharray="1 2" />
-
         {/* shipped phone */}
         <rect x="262" y="44" width="88" height="168" rx="16" />
         <rect x="290" y="50" width="32" height="5" rx="2.5" fill={INK} />
@@ -129,8 +139,9 @@ export const BuildSketch = () => {
         <path d="M256 222 l14 -2 M300 223 l18 -3 M334 222 l10 -2" strokeWidth="1.4" />
       </g>
 
-      {/* the idea, carried across as a trail of dither dots */}
+      {/* the idea, carried across as a trail of dither dots, ending in a crisp arrowhead on the same heading */}
       <g className="bd-fade" fill={NAVY}>
+        <path className="bd-arrow" d={HEAD} fill="none" stroke={NAVY} strokeWidth="2.6" strokeLinejoin="miter" strokeLinecap="square" pathLength={1} strokeDasharray="1 2" />
         {TRAIL.map(([x, y], k) => (
           <rect key={k} className={`bd-dot-${k}`} style={centered} x={x - 1.6} y={y - 1.6} width="3.2" height="3.2" shapeRendering="crispEdges" />
         ))}
