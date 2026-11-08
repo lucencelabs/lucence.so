@@ -39,19 +39,44 @@ export const FloatingNav = () => {
     return () => document.removeEventListener('keydown', handleKeyDown);
   }, [open]);
 
+  // At the top of the page the nav is a flush, full-width solid bar; once
+  // scrolled it tucks into the floating card.
+  const [atTop, setAtTop] = useState(true);
+  useEffect(() => {
+    const onScroll = () => setAtTop(window.scrollY < 24);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
   const handleLinkClick = () => setOpen(false);
 
   return (
-    <div className="pointer-events-none fixed inset-x-0 top-5 z-50 flex justify-center px-4">
+    <div
+      className={cn(
+        'pointer-events-none fixed inset-x-0 z-50 flex justify-center transition-all duration-500 ease-spring',
+        atTop ? 'top-0 px-0' : 'top-5 px-4',
+      )}
+    >
       <div
         ref={rootRef}
         className={cn(
-          'pointer-events-auto overflow-hidden border border-[#16305b]/10 bg-background shadow-[0_8px_30px_rgba(20,25,40,0.08)] transition-all duration-500 ease-spring',
-          open ? 'w-[340px] rounded-[22px] sm:w-[380px]' : 'w-[320px] rounded-[18px] sm:w-[350px]',
+          'pointer-events-auto overflow-hidden bg-background transition-all duration-500 ease-spring',
+          atTop
+            ? 'w-full rounded-none border-b border-[#16305b]/10 shadow-none'
+            : cn(
+                'border border-[#16305b]/10 shadow-[0_8px_30px_rgba(20,25,40,0.08)]',
+                open ? 'w-[340px] rounded-[22px] sm:w-[380px]' : 'w-[320px] rounded-[18px] sm:w-[350px]',
+              ),
         )}
       >
         {/* Always-visible header row */}
-        <div className="flex h-14 shrink-0 items-center justify-between px-5">
+        <div
+          className={cn(
+            'mx-auto flex h-14 w-full shrink-0 items-center justify-between transition-all duration-500',
+            atTop ? 'max-w-[calc(72rem+5rem)] px-6 md:h-16 md:px-10' : 'max-w-full px-5',
+          )}
+        >
           <a
             href="#top"
             onClick={handleLinkClick}
@@ -80,6 +105,7 @@ export const FloatingNav = () => {
           )}
         >
           <div className="overflow-hidden">
+           <div className={cn(atTop && 'mx-auto max-w-[calc(72rem+5rem)] px-1 md:px-5')}>
             <nav className="flex flex-col gap-1 px-5 pb-5 pt-1">
               {NAV_LINKS.map((link, i) => (
                 <a
@@ -125,6 +151,7 @@ export const FloatingNav = () => {
                 @lucencelabs
               </a>
             </div>
+           </div>
           </div>
         </div>
       </div>
