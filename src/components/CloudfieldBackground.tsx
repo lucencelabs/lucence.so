@@ -122,8 +122,10 @@ const fieldShader = `
     float sd = roundedBox(px, center, halfSize, uClearPad * 1.6);
     sd += (billow - 0.5) * uClearPad * 2.2;
 
-    float falloff = uClearPad * 1.6;
-    float clearMask = smoothstep(0.0, falloff, sd);
+    // A wide falloff so the dots thin out gradually into the clearing
+    // rather than stopping at a blob edge.
+    float falloff = uClearPad * 3.0;
+    float clearMask = smoothstep(-uClearPad * 0.3, falloff, sd);
     density *= clearMask * clearMask;
 
     // Fade toward the section's top/bottom edges so the field dissolves

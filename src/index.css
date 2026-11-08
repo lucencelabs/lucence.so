@@ -139,6 +139,23 @@
   .divider-faint {
     @apply h-px w-full bg-foreground/[0.06];
   }
+
+  /* Faint navy dot grid behind a sketch, echoing the hero's dither field
+     and fading out toward the edges so it sits on the page, not in a box */
+  .dot-field {
+    position: relative;
+    isolation: isolate;
+  }
+
+  .dot-field::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-image: radial-gradient(rgb(22 48 91 / 0.28) 0.8px, transparent 1px);
+    background-size: 6px 6px;
+    mask-image: radial-gradient(ellipse 50% 50% at 50% 55%, black 20%, transparent 100%);
+  }
 }
 
 @layer utilities {
