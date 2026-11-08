@@ -11,13 +11,16 @@ const entries: WorkEntry[] = [
     link: { href: 'https://soaper.ai', label: 'soaper.ai' },
   },
   {
-    title: 'Voice companion for older adults',
-    body: "A realtime voice agent that remembers each person's life story mid-conversation and turns it into something they can share with family. 5,000+ sessions.",
+    title: 'Inbound sales line for a retailer',
+    body: "Takes orders and quote requests on a retailer's live phone line. Every change is tested against a suite of simulated calls built from 144 real ones before it ships.",
   },
   {
-    title: 'Sift, an AI assistant for students',
-    body: 'An assistant students text over iMessage, connected to their calendar and Canvas. Used by 100+ students.',
-    link: { href: 'https://usesift.app', label: 'usesift.app' },
+    title: 'Follow-up calls for a home-services company',
+    body: 'Two outbound agents that call back quotes that never booked and past customers due for maintenance, and get them on the schedule.',
+  },
+  {
+    title: 'Voice companion for older adults',
+    body: "A realtime voice agent that remembers each person's life story mid-conversation and turns it into something they can share with family. 5,000+ sessions.",
   },
 ];
 
