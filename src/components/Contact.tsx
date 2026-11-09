@@ -21,7 +21,7 @@ export const Contact = () => {
             Tell us what you&apos;re trying to build and where it&apos;s stuck.
           </p>
           <div className="mt-9">
-            <CtaButton href="mailto:hello@lucence.so" tone="navy">hello@lucence.so</CtaButton>
+            <CtaButton href="mailto:hello@lucence.so">hello@lucence.so</CtaButton>
           </div>
         </div>
       </div>

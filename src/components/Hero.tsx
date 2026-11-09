@@ -32,7 +32,7 @@ export const Hero = () => {
             </p>
 
             <div className="mt-9">
-              <CtaButton href="#contact" tone="ink">Let&apos;s build together</CtaButton>
+              <CtaButton href="#contact">Let&apos;s build together</CtaButton>
             </div>
           </div>
         </div>
