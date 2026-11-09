@@ -1,3 +1,4 @@
+import { CtaButton } from './CtaButton';
 import { useRef } from 'react';
 import CloudfieldBackground from './CloudfieldBackground';
 import { FloatingNav } from './FloatingNav';
@@ -31,13 +32,7 @@ export const Hero = () => {
             </p>
 
             <div className="mt-9">
-              <a
-                href="#contact"
-                className="inline-flex items-center gap-2 rounded-full bg-foreground px-6 py-3 text-sm font-light text-background transition-colors duration-300 hover:bg-foreground/85"
-              >
-                Let&apos;s build together
-                <span aria-hidden="true">&rarr;</span>
-              </a>
+              <CtaButton href="#contact" tone="ink">Let&apos;s build together</CtaButton>
             </div>
           </div>
         </div>
