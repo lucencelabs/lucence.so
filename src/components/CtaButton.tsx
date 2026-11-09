@@ -1,13 +1,13 @@
 import type { ReactNode } from 'react';
 import { NAVY } from './sketches/InkDefs';
 
-type Variant = 'pill' | 'ink' | 'print' | 'line';
+type Variant = 'pill' | 'ink' | 'print' | 'block' | 'line';
 
 // Preview-only switch: ?cta=ink|print|line picks a mockup, default is the live pill.
 const pick = (): Variant => {
   if (typeof window === 'undefined') return 'pill';
   const v = new URLSearchParams(window.location.search).get('cta');
-  return v === 'ink' || v === 'print' || v === 'line' ? v : 'pill';
+  return v === 'ink' || v === 'print' || v === 'block' || v === 'line' ? v : 'pill';
 };
 
 // Checker of crisp navy squares on the same 4px grid as the sketch dither.
@@ -52,6 +52,16 @@ export const CtaButton = ({ href, children, tone = 'ink' }: { href: string; chil
         <span className="relative inline-flex items-center gap-2 rounded-[3px] bg-[#16305b] px-6 py-3 text-sm font-light text-[#fbf6ee] transition-transform duration-200 group-hover:translate-x-[3px] group-hover:translate-y-[3px]">
           {children} <Arrow />
         </span>
+      </a>
+    );
+  }
+
+  if (variant === 'block') {
+    // The print block without its dot shadow: square-cornered navy, arrow nudges on hover.
+    return (
+      <a href={href} className="group inline-flex items-center gap-2 rounded-[3px] bg-[#16305b] px-6 py-3 text-sm font-light text-[#fbf6ee] transition-colors duration-300 hover:bg-[#16305b]/90">
+        {children}
+        <span className="transition-transform duration-300 group-hover:translate-x-1"><Arrow /></span>
       </a>
     );
   }
